@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="{% url 'index' %}">Главная</a>
+            <span class="breadcrumbs__sep">/</span>
+            <span>Отзывы</span>
+        </div>
+
+        <h1>
+            {% if review_banner %}
+                {{ review_banner.title }}
+            {% else %}
+                Отзывы наших пациентов
+            {% endif %}
+        </h1>
+
+        <p>
+            {% if review_banner %}
+                {{ review_banner.description }}
+            {% else %}
+                Спасибо каждому, кто доверил нам свою улыбку
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+
+<!-- ===================== СТАТИСТИКА ===================== -->
+
+<section class="section" style="padding:var(--space-xl) 0;">
+    <div class="container">
+        <div class="grid grid--4 reveal-stagger" style="text-align:center;">
+
+            <div>
+                <div style="font-size:36px;font-weight:700;color:var(--color-primary-hover);">
+                    {% if stats %}{{ stats.patients }}+{% else %}0+{% endif %}
+                </div>
+                <div>довольных пациентов</div>
+            </div>
+
+            <div>
+                <div style="font-size:36px;font-weight:700;color:var(--color-primary-hover);">
+                    {% if stats %}{{ stats.average_rating }}{% else %}0{% endif %}
+                </div>
+                <div>
+                    средний рейтинг 
+                    <i class="fa-solid fa-star" style="color:#f59e0b;"></i>
+                </div>
+            </div>
+
+            <div>
+                <div style="font-size:36px;font-weight:700;color:var(--color-primary-hover);">
+                    {% if stats %}{{ stats.recommend }}%{% else %}0%{% endif %}
+                </div>
+                <div>рекомендуют нас</div>
+            </div>
+
+            <div>
+                <div style="font-size:36px;font-weight:700;color:var(--color-primary-hover);">
+                    {% if stats %}{{ stats.reviews_online }}+{% else %}0+{% endif %}
+                </div>
+                <div>отзывов онлайн</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== ТАБЫ ===================== -->
+
+<section class="section" style="padding-top:0;">
+    <div class="container">
+
+        <div class="tabs reveal" style="margin:0 auto var(--space-xl);">
+            <button class="tabs__btn active" data-tab="text-reviews">
+                <i class="fa-solid fa-comment-dots"></i> Текстовые
+            </button>
+            <button class="tabs__btn" data-tab="video-reviews">
+                <i class="fa-solid fa-video"></i> Видео
+            </button>
+        </div>
+
+
+        <!-- ===================== ТЕКСТОВЫЕ ===================== -->
+
+        <div class="tab-content active" id="text-reviews">
+            <div class="grid grid--3 reveal-stagger">
+
+                {% for review in text_reviews %}
+                <div class="card review-card">
+
+                    <!-- ЗВЁЗДЫ -->
+                    <div class="review-card__stars">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= review.text_rating %}
+                                <i class="fa-solid fa-star"></i>
+                            {% else %}
+                                <i class="fa-regular fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- ТЕКСТ -->
+                    <div class="review-card__text">
+                        {{ review.text_description }}
+                    </div>
+
+                    <!-- АВТОР -->
+                    <div class="review-card__author">
+                        {% if review.avatar %}
+                            <img src="{{ review.avatar.url }}"
+                                 style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                        {% else %}
+                            <div class="review-card__avatar">
+                                {{ review.author|first }}
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <div class="review-card__name">
+                                {{ review.author }}
+                            </div>
+                            <div class="review-card__date">
+                                {{ review.time }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% empty %}
+                    <p>Пока нет отзывов.</p>
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+        <!-- ===================== ВИДЕО ===================== -->
+         <div class="tab-content" id="video-reviews">
+    <div class="grid grid--3 reveal-stagger">
+
+        {% for video in video_reviews %}
+        <div style="
+            background:#0f172a;
+            border-radius:16px;
+            overflow:hidden;
+            transition:0.3s ease;
+        ">
+
+            <div style="
+                position:relative;
+                width:100%;
+                height:280px;
+                overflow:hidden;
+                background:#000;
+            ">
+                <video controls preload="metadata"
+                       style="
+                           width:100%;
+                           height:100%;
+                           object-fit:cover;
+                           display:block;
+                       ">
+                    <source src="{{ video.video.url }}" type="video/mp4">
+                </video>
+            </div>
+
+            <div style="padding:16px;">
+                <div style="
+                    font-weight:600;
+                    font-size:14px;
+                    color:#ffffff;
+                ">
+                    {{ video.title }}
+                </div>
+            </div>
+
+        </div>
+        {% empty %}
+            <p>Пока нет видео-отзывов.</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+        </div>
+</section>
+
+
+<!-- ===================== CTA ===================== -->
+
+<section class="section cta-section section--alt">
+    <div class="container reveal">
+        <h2>
+            {% if review_banner %}
+                {{ review_banner.record_title }}
+            {% else %}
+                Присоединяйтесь к нашим пациентам
+            {% endif %}
+        </h2>
+
+        <p>
+            {% if review_banner %}
+                {{ review_banner.description_record }}
+            {% else %}
+                Запишитесь на бесплатную консультацию уже сегодня.
+            {% endif %}
+        </p>
+
+        <a href="{% url 'contacts' %}#booking"
+           class="btn btn--primary btn--lg">
+            Записаться бесплатно
+        </a>
+    </div>
+</section>
+
+
+<!-- ===================== JS ===================== -->
+
+<script>
+document.querySelectorAll('.tabs__btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs__btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+});
+</script>
+
+{% endblock %}

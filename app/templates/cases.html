@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumbs"><a href="{% url 'index' %}">Главная</a><span
+                    class="breadcrumbs__sep">/</span><span>Кейсы</span></div>
+            <h1>{{ banner.title }}</h1>
+            <p>{{ banner.description }}</p>
+        </div>
+    </section>
+
+    <!-- Calm block for fear mode -->
+    <div class="container">
+        <div class="calm-text" data-calm
+            style="padding:var(--space-lg) var(--space-xl);background:rgba(125,211,192,0.08);border-radius:var(--radius-lg);border:1px solid rgba(125,211,192,0.15);margin:var(--space-xl) 0;">
+            <i class="fa-solid fa-heart" style="color:var(--color-calm-accent);"></i> Не переживайте — все процедуры
+            проходят <b>безболезненно</b>. На фото вы видите только финальный результат, а весь процесс лечения — это
+            спокойная атмосфера с заботой о вашем комфорте.
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+
+            {% for case in cases %}
+            <div class="case-block {% if forloop.counter|divisibleby:2 %}case-block--reverse{% endif %} reveal">
+
+                <!-- Картинка -->
+                <div class="case-block__visual">
+                    <div class="ba-container" data-ba-slider>
+
+                        <div class="ba-before">
+                            <img src="{{ case.imageOne.url }}"
+                                alt="До — {{ case.title }}"
+                                loading="lazy">
+                        </div>
+
+                        <div class="ba-after">
+                            <img src="{{ case.imageTwo.url }}"
+                                alt="После — {{ case.title }}"
+                                loading="lazy">
+                        </div>
+
+                        <div class="ba-handle"></div>
+                        <span class="case-card__label case-card__label--before">До</span>
+                        <span class="case-card__label case-card__label--after">После</span>
+
+                    </div>
+                </div>
+
+                <!-- Текст -->
+                <div class="case-block__info">
+                    <span class="badge badge--accent">{{ case.type }}</span>
+
+                    <h3>{{ case.title }}</h3>
+
+                    <p>{{ case.description }}</p>
+
+                    <div class="case-block__meta">
+                        <span>
+                            <i class="fa-regular fa-clock"></i>
+                            Срок: {{ case.term }}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-tooth"></i>
+                            {{ case.quantity }}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-star"></i>
+                            Результат: {{ case.result }}
+                        </span>
+                    </div>
+
+                    <a href="{% url 'contacts' %}#booking"
+                    class="btn btn--primary btn--sm">
+                        Хочу так же
+                    </a>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <section class="section cta-section section--alt">
+        <div class="container reveal">
+            <h2>{{ banner.title_record }}</h2>
+            <p>{{ banner.description_record }}</p>
+            <a href="{% url 'contacts' %}#booking" class="btn btn--primary btn--lg">Записаться бесплатно</a>
+        </div>
+    </section>
+
+
+    <script>
+        // Before/After Slider Logic
+        document.querySelectorAll('[data-ba-slider]').forEach(slider => {
+            const handle = slider.querySelector('.ba-handle');
+            const afterWrap = slider.querySelector('.ba-after');
+            let isDragging = false;
+            function setPosition(x) {
+                const rect = slider.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(2, Math.min(98, percent));
+                handle.style.left = percent + '%';
+                afterWrap.style.width = percent + '%';
+            }
+            handle.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
+            handle.addEventListener('touchstart', (e) => { isDragging = true; }, { passive: true });
+            document.addEventListener('mousemove', (e) => { if (isDragging) setPosition(e.clientX); });
+            document.addEventListener('touchmove', (e) => { if (isDragging) setPosition(e.touches[0].clientX); }, { passive: true });
+            document.addEventListener('mouseup', () => { isDragging = false; });
+            document.addEventListener('touchend', () => { isDragging = false; });
+            slider.addEventListener('click', (e) => { setPosition(e.clientX); });
+        });
+    </script>
+
+
+{% endblock %}

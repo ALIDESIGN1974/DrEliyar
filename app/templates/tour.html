@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumbs"><a href="{% url 'index' %}">Главная</a><span class="breadcrumbs__sep">/</span><span>360°
+                    тур</span></div>
+            <h1>{{ tur_banner.title }}</h1>
+            <p>{{ tur_banner.description }}</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Location Switcher -->
+            <div class="tour-switcher reveal"
+                style="display:flex;gap:var(--space-sm);flex-wrap:wrap;margin-bottom:var(--space-xl);justify-content:center;">
+                <button class="btn btn--primary btn--sm tour-loc active" data-loc="reception"><i
+                        class="fa-solid fa-door-open"></i> Ресепшн</button>
+                <button class="btn btn--outline btn--sm tour-loc" data-loc="cabinet1"><i class="fa-solid fa-chair"></i>
+                    Кабинет 1</button>
+                <button class="btn btn--outline btn--sm tour-loc" data-loc="cabinet2"><i
+                        class="fa-solid fa-microscope"></i> Кабинет 2</button>
+                <button class="btn btn--outline btn--sm tour-loc" data-loc="surgery"><i class="fa-solid fa-syringe"></i>
+                    Хирургия</button>
+                <button class="btn btn--outline btn--sm tour-loc" data-loc="xray"><i class="fa-solid fa-x-ray"></i>
+                    Рентген</button>
+                <button class="btn btn--outline btn--sm tour-loc" data-loc="sterilization"><i
+                        class="fa-solid fa-shield-virus"></i> Стерилизация</button>
+            </div>
+
+            <!-- Tour Viewport -->
+            <div class="tour-viewport reveal" id="tourViewport"
+                style="width:100%;height:500px;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--color-border-dark);position:relative;">
+                <img id="tourImage"
+                    src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=1200&h=600&fit=crop&q=80"
+                    alt="Виртуальный тур — ресепшн" style="width:100%;height:100%;object-fit:cover;">
+                <div
+                    style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
+                    <div style="text-align:center;color:#fff;">
+                        <div style="font-size:48px;margin-bottom:var(--space-md);"><i
+                                class="fa-solid fa-vr-cardboard"></i></div>
+                        <div style="font-size:18px;font-weight:600;">360° тур будет здесь</div>
+                        <div style="font-size:14px;opacity:.7;margin-top:var(--space-sm);">Встроенный iframe с панорамой
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="container">
+            <div class="section__header reveal">
+                <h2>{{ tur_banner.title_clinik }}</h2>
+                <p>{{ tur_banner.description_clinik }}</p>
+            </div>
+            <div class="grid grid--3 reveal-stagger">
+                {% for item in tur_clinik %}
+                <div class="card">
+                    <div class="card__icon">
+                        <img src="{{ item.icon.url }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="card__title">{{ item.title }}</div>
+                    <div class="card__text">{{ item.description }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container reveal">
+            <h2>{{ tur_banner.record_title }}</h2>
+            <p>{{ tur_banner.record_description }}</p>
+            <a href="{% url 'contacts' %}#booking" class="btn btn--primary btn--lg">Записаться на визит</a>
+        </div>
+    </section>
+{% endblock %}

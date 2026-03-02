@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load static %}
+{% load review_extras %}
+
+{% block content %}
+  
+
+    <!-- ====== HERO ====== -->
+    <section class="hero">
+        <div class="hero__bg">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&h=900&fit=crop&q=80"
+                alt="Современная стоматологическая клиника" loading="eager">
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="container hero__inner">
+            <div class="hero__content reveal--left">
+                <span class="badge"><span class="badge__dot"></span>{{ index.hero_badge }}</span>
+                <h1 class="hero__title">{{ index.hero_title }}</h1>
+                <p class="hero__subtitle">{{ index.hero_subtitle }}</p>
+
+                <!-- Fear mode calm text -->
+                <p class="calm-text" data-calm><i class="fa-solid fa-heart" style="color:var(--color-calm-accent);"></i>
+                    Мы знаем, что визит к стоматологу — это стресс. Именно поэтому мы делаем всё, чтобы вам было
+                    <b>комфортно и спокойно</b> на каждом этапе.</p>
+
+                <div class="hero__buttons">
+                    <a href="{% url 'contacts' %}#booking" class="btn btn--primary btn--lg">Записаться бесплатно</a>
+                    <a href="{% url 'tour' %}" class="btn btn--outline btn--lg">Смотреть 360° тур</a>
+                </div>
+            </div>
+
+            <div class="hero__form reveal--right">
+                <div class="chat" id="chatForm">
+                    <div class="chat__header">
+                        <div class="chat__avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                        <div>
+                            <div class="chat__name">Ассистент Dr. Eliyar</div>
+                            <div class="chat__status"><i class="fa-solid fa-circle"
+                                    style="font-size:8px;color:#22c55e;"></i> Онлайн</div>
+                        </div>
+                    </div>
+                    <div class="chat__body" id="chatBody"></div>
+                    <div class="chat__input-area" id="chatInputArea" style="display:none;">
+                        <input class="chat__input" id="chatInput" type="text" placeholder="Введите ответ...">
+                        <button class="chat__send" id="chatSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- ====== TRUST CARDS ====== -->
+<section class="section">
+  <div class="container">
+    <div class="section__header reveal">
+      <h2>{{ index.trust_title }}</h2>
+      <p>{{ index.trust_subtitle }}</p>
+    </div>
+
+    <div class="grid grid--4 reveal-stagger">
+      {% for stat in index.stats.all %}
+        <div class="card">
+          <div class="card__icon"><i class="fa-solid fa-trophy"></i></div>
+          <div class="card__title">{{ stat.value }}</div>
+          <div class="card__text">{{ stat.label }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+    <!-- ====== SERVICES PREVIEW ====== -->
+<section class="section section--alt">
+    <div class="container">
+
+        <div class="section__header">
+            <h2>{{ index.services_title }}</h2>
+            <p>{{ index.services_subtitle }}</p>
+        </div>
+
+        <div class="grid grid--3">
+
+            {% for service in services_home %}
+            <div class="card">
+
+                <div class="card__img">
+                    {% if service.photo %}
+                        <img src="{{ service.photo.url }}"
+                             alt="{{ service.title }}"
+                             loading="lazy">
+                    {% else %}
+                        <img src="https://via.placeholder.com/600x400"
+                             alt="Service">
+                    {% endif %}
+                </div>
+
+                <div class="card__title">
+                    {{ service.title }}
+                </div>
+
+                <div class="card__text">
+                    {{ service.description }}
+                </div>
+
+                <a href="{% url 'services' %}"
+                   class="btn btn--ghost"
+                   style="margin-top:20px;">
+                    Подробнее
+                </a>
+
+            </div>
+            {% empty %}
+                <p>Услуги пока не добавлены</p>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+    <!-- ====== OUR TEAM ====== -->
+ <section class="section">
+  <div class="container">
+    <div class="section__header reveal">
+      <h2>{{ index.our_command_title }}</h2>
+      <p>{{ index.our_command_subtitle }}</p>
+    </div>
+
+    <div class="grid grid--4 reveal-stagger">
+  {% for doctor in doctors %}
+    <div class="team-card">
+      <div class="team-card__photo">
+        {% if doctor.photo %}
+          <img src="{{ doctor.photo.url }}" alt="{{ doctor.name }}" loading="lazy">
+        {% else %}
+          <img src="https://via.placeholder.com/600x600?text=Doctor" alt="{{ doctor.name }}" loading="lazy">
+        {% endif %}
+      </div>
+
+      <div class="team-card__info">
+        <h4 class="team-card__name">{{ doctor.name }}</h4>
+        <div class="team-card__role">{{ doctor.role }}</div>
+        <p class="team-card__desc">{{ doctor.description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+    <div style="text-align:center;margin-top:var(--space-xl);" class="reveal">
+      <a href="{% url 'aboutTheClinic' %}" class="btn btn--outline">
+        Подробнее о команде <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+    <!-- ====== 360° TOUR PREVIEW ====== -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="case-block reveal">
+                <div class="case-block__visual"
+                    style="height:400px;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--color-border-dark);">
+                    <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=900&h=500&fit=crop&q=80"
+                        alt="Интерьер клиники Dr. Eliyar" style="width:100%;height:100%;object-fit:cover;"
+                        loading="lazy">
+                </div>
+                <div class="case-block__info">
+                    <span class="badge badge--accent"><i class="fa-solid fa-vr-cardboard"></i> 360° тур</span>
+                    <h2>{{ index.tur_title }}</h2>
+                    <p>{{ index.tur_subtitle }}</p>
+                    <p class="calm-text" data-calm><i class="fa-solid fa-heart"
+                            style="color:var(--color-calm-accent);"></i> Особенно рекомендуем тем, кто нервничает —
+                        знакомое пространство снижает тревогу.</p>
+                    <a href="{% url 'tour' %}" class="btn btn--primary btn--sm">Начать тур <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== DOCTOR PREVIEW ====== -->
+    <section class="section">
+        <div class="container">
+            <div class="case-block case-block--reverse reveal">
+                <div class="case-block__visual" style="height:440px;border-radius:var(--radius-xl);overflow:hidden;">
+                    <img src="{{ index.doctor_photo.url }}"
+                        alt="Доктор Элияр" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+                </div>
+                <div class="case-block__info">
+                    <span class="badge badge--accent"><i class="fa-solid fa-user-doctor"></i> Ваш доктор</span>
+                    <h2>{{ index.doctor_name }}</h2>
+                    <p style="color:var(--color-primary-hover);font-weight:600;font-size:16px;">{{ index.doctor_role }}</p>
+                    <p>{{ index.doctor_description }}</p>
+                    <div style="display:flex;gap:var(--space-2xl);padding:var(--space-md) 0;">
+                        <div>
+                            <div style="font-size:28px;font-weight:700;color:var(--color-primary-hover);">{{ index.doctor_patients }}</div>
+                            <div style="font-size:13px;color:var(--color-text-secondary);">пациентов</div>
+                        </div>
+                        <div>
+                            <div style="font-size:28px;font-weight:700;color:var(--color-primary-hover);">{{ index.doctor_experience }}</div>
+                            <div style="font-size:13px;color:var(--color-text-secondary);">лет опыта</div>
+                        </div>
+                        <div>
+                            <div style="font-size:28px;font-weight:700;color:var(--color-primary-hover);">{{ index.doctor_courses }}</div>
+                            <div style="font-size:13px;color:var(--color-text-secondary);">курсов</div>
+                        </div>
+                    </div>
+                    <a href="{% url 'aboutTheClinic' %}" class="btn btn--primary btn--sm">Подробнее о враче <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CASES PREVIEW ====== -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="section__header reveal">
+                <h2>{{ index.result_title }}</h2>
+                <p>{{ index.result_subtitle }}</p>
+            </div>
+            <div class="grid grid--3 reveal-stagger">
+                {% for results in results %}
+                <div class="card">
+                    <div class="card__img" style="position:relative;">
+                        <img src="{{ results.image.url }}"
+                            alt="Кейс виниры" loading="lazy">
+                        <span class="badge badge--accent" style="position:absolute;top:12px;left:12px;">{{ results.type }}</span>
+                    </div>
+                    <div class="card__title">{{ results.title }}</div>
+                    <div class="card__text">{{ results.description }}</div>
+                </div>
+                {% endfor %} 
+            </div>
+            <div style="text-align:center;margin-top:var(--space-xl);" class="reveal">
+                <a href="{% url 'cases' %}" class="btn btn--outline">Все кейсы <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== REVIEWS PREVIEW ====== -->
+ <section class="section">
+  <div class="container">
+    <div class="section__header reveal">
+      <h2>{{ index.review_title }}</h2>
+      <p>{{ index.review_subtitle }}</p>
+    </div>
+
+    <div class="grid grid--3 reveal-stagger">
+      {% for reviews in reviews %}
+        <div class="card review-card">
+
+          <!-- Звезды как на скрине (в плашке) -->
+          <div class="review-card__stars-badge" aria-label="Рейтинг: {{ reviews.rating }}">
+            <div class="review-card__stars">
+              {% for s in reviews.rating|stars %}
+                {% if s == "full" %}
+                  <i class="fa-solid fa-star"></i>
+                {% elif s == "half" %}
+                  <i class="fa-solid fa-star-half-stroke"></i>
+                {% else %}
+                  <i class="fa-regular fa-star"></i>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="review-card__text">{{ reviews.text }}</div>
+
+          <div class="review-card__author">
+            <div class="review-card__avatar">
+              {% if reviews.avatar %}
+                <img src="{{ reviews.avatar.url }}" alt="{{ reviews.author_name }}">
+              {% else %}
+                <div class="review-card__avatar-fallback">{{ reviews.author_name|slice:":1" }}</div>
+              {% endif %}
+            </div>
+
+            <div>
+              <div class="review-card__name">{{ reviews.author_name }}</div>
+              <div class="review-card__date">{{ reviews.created_at|date:"d.m.Y" }}</div>
+            </div>
+          </div>
+
+        </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align:center;margin-top:var(--space-xl);" class="reveal">
+      <a href="{% url 'review' %}" class="btn btn--outline">
+        Все отзывы <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+    <!-- ====== CTA ====== -->
+    <section class="section cta-section">
+        <div class="container reveal">
+            <h2>{{ index.consultation_title }}</h2>
+            <p>{{ index.consultation_subtitle }}</p>
+            <a href="{% url 'contacts' %}#booking" class="btn btn--primary btn--lg">Записаться бесплатно</a>
+            <p class="calm-text" data-calm style="margin-top:var(--space-lg);"><i class="fa-solid fa-heart"
+                    style="color:var(--color-calm-accent);"></i> Если вы боитесь — просто скажите. Мы подготовимся и всё
+                пройдёт максимально комфортно.</p>
+        </div>
+    </section>
+
+
+
+{% endblock %}

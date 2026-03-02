@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+  
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumbs"><a href="{% url 'index' %}">Главная</a><span
+                    class="breadcrumbs__sep">/</span><span>Контакты</span></div>
+            <h1>{{ contacts_banner.title }}</h1>
+            <p>{{ contacts_banner.description }}</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid grid--2 reveal-stagger" style="gap:var(--space-2xl);">
+                <!-- Info Column -->
+                <div>
+                    <div class="card" style="padding:var(--space-xl);margin-bottom:var(--space-lg);">
+                        <h3 style="margin-bottom:var(--space-lg);"><i class="fa-solid fa-location-dot"
+                                style="color:var(--color-primary-hover);"></i> Адрес</h3>
+                        <p style="font-size:18px;font-weight:600;">{{ contacts_info.addres }}</p>
+                        <p style="color:var(--color-text-secondary);">Ориентир — {{ contacts_info.landmark }}</p>
+                    </div>
+                    <div class="card" style="padding:var(--space-xl);margin-bottom:var(--space-lg);">
+                        <h3 style="margin-bottom:var(--space-lg);"><i class="fa-regular fa-clock"
+                                style="color:var(--color-primary-hover);"></i> Часы работы</h3>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xs);">
+                            <span>Пн–Пт:</span><span style="font-weight:600;">{{ contacts_info.weekdays }}</span>
+                            <span>Суббота:</span><span style="font-weight:600;">{{ contacts_info.saturday }}</span>
+                            <span>Воскресенье:</span><span style="color:var(--color-text-secondary);">{{ contacts_info.sunday }}</span>
+                        </div>
+                    </div>
+                    <div class="card" style="padding:var(--space-xl);margin-bottom:var(--space-lg);">
+                        <h3 style="margin-bottom:var(--space-lg);"><i class="fa-solid fa-phone"
+                                style="color:var(--color-primary-hover);"></i> Телефон</h3>
+                        <a href="tel:{{ contacts_info.phone }}"
+                            style="font-size:24px;font-weight:700;color:var(--color-primary-hover);text-decoration:none;">{{ contacts_info.phone }}</a>
+                    </div>
+                    <div class="card" style="padding:var(--space-xl);">
+                        <h3 style="margin-bottom:var(--space-lg);"><i class="fa-solid fa-comments"
+                                style="color:var(--color-primary-hover);"></i> Мессенджеры</h3>
+                        <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;">
+                            <a href="{{ contacts_info.whatsapp }}" class="btn btn--outline btn--sm"><i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp</a>
+                            <a href="{{ contacts_info.telegram }}" class="btn btn--outline btn--sm"><i class="fa-brands fa-telegram"></i>
+                                Telegram</a>
+                            <a href="{{ contacts_info.instagram }}" class="btn btn--outline btn--sm"><i class="fa-brands fa-instagram"></i>
+                                Instagram</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map Column -->
+                <div>
+                    <div class="card" style="padding:0;overflow:hidden;height:100%;min-height:400px;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2924.5!2d74.59!3d42.87!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDUyJzEyLjAiTiA3NMKwMzUnMjQuMCJF!5e0!3m2!1sru!2skg!4v1700000000000!5m2!1sru!2skg"
+                            width="100%" height="100%" style="border:0;min-height:400px;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING FORM -->
+    <section class="section section--alt" id="booking">
+        <div class="container">
+            <div class="section__header reveal">
+                <h2>Запись на приём</h2>
+                <p>Заполните форму и мы перезвоним вам в течение 15 минут</p>
+            </div>
+            <div class="card reveal" style="max-width:640px;margin:0 auto;padding:var(--space-2xl);">
+                <form id="bookingForm" style="display:flex;flex-direction:column;gap:var(--space-lg);">
+                    <div class="form-group">
+                        <label class="form-label" for="bookName"><i class="fa-solid fa-user"></i> Ваше имя</label>
+                        <input class="form-input" type="text" id="bookName" placeholder="Как к вам обращаться?"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bookPhone"><i class="fa-solid fa-phone"></i> Телефон</label>
+                        <input class="form-input" type="tel" id="bookPhone" placeholder="+996 (___) __-__-__" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bookService"><i class="fa-solid fa-tooth"></i> Услуга</label>
+                        <select class="form-input" id="bookService">
+                            <option value="">Выберите услугу</option>
+                            <option>Консультация</option>
+                            <option>Имплантация</option>
+                            <option>Виниры / Коронки</option>
+                            <option>Лечение кариеса</option>
+                            <option>Ортодонтия</option>
+                            <option>Хирургия</option>
+                            <option>Гигиена / Отбеливание</option>
+                            <option>Детская стоматология</option>
+                            <option>Другое</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bookComment"><i class="fa-solid fa-message"></i>
+                            Комментарий</label>
+                        <textarea class="form-input" id="bookComment" rows="3"
+                            placeholder="Опишите вашу ситуацию (необязательно)"></textarea>
+                    </div>
+                    <p class="calm-text" data-calm><i class="fa-solid fa-heart"
+                            style="color:var(--color-calm-accent);"></i> Если вы тревожитесь — напишите об этом здесь.
+                        Мы подготовимся и обеспечим максимальный комфорт.</p>
+                    <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">Записаться
+                        бесплатно</button>
+                    <p style="font-size:12px;color:var(--color-text-secondary);text-align:center;">Нажимая кнопку, вы
+                        соглашаетесь на обработку персональных данных</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
