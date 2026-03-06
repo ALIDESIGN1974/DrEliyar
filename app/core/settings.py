@@ -9,9 +9,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 # Security / env
 # -----------------------------
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
-DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
+from core.project_settings.key import (
+    SECRET_KEY,
+    DEBUG,
+    ALLOWED_HOSTS,
+    CSRF_TRUSTED_ORIGINS,
+    CSRF_COOKIE_SECURE,
+    CSRF_COOKIE_HTTPONLY,
+    CSRF_COOKIE_SAMESITE,
+)
 
 # -----------------------------
 # Installed apps / middleware
