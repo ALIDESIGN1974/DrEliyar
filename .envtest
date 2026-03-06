@@ -1,13 +1,18 @@
+# Django Core
 SECRET_KEY=dreliyar_super_secret_key_2026_very_safe_12345
-DEBUG=0
 
+# Hosts & Security
 ALLOWED_HOSTS=dreliyardentalclinic.webtm.ru,127.0.0.1,localhost
 CSRF_TRUSTED_ORIGINS=https://dreliyardentalclinic.webtm.ru,http://dreliyardentalclinic.webtm.ru
 
-CSRF_COOKIE_SECURE=1
-CSRF_COOKIE_HTTPONLY=0
-CSRF_COOKIE_SAMESITE=Lax
+# Internationalization
+LANGUAGE_CODE=ru
+TIME_ZONE=Asia/Bishkek
 
+# Project
+PROJECT_NAME=dreliyar
+
+# Database
 POSTGRES_DB=dreliyar
 POSTGRES_USER=dreliyar_user
 POSTGRES_PASSWORD=dreliyar1234

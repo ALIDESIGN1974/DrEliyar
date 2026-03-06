@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  db_dreliyar:
+  db_${PROJECT_NAME}:
     image: postgres:14
-    container_name: postgres_db_dreliyar
+    container_name: postgres_db_${PROJECT_NAME}
     env_file:
       - ../.env
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data_dreliyar:/var/lib/postgresql/data
+      - postgres_data_${PROJECT_NAME}:/var/lib/postgresql/data
     networks:
       - portfolio_network
     healthcheck:
@@ -18,19 +18,19 @@ services:
       timeout: 5s
       retries: 5
 
-  redis_dreliyar:
+  redis_${PROJECT_NAME}:
     image: redis:6
-    container_name: redis_dreliyar
+    container_name: redis_${PROJECT_NAME}
     ports:
       - "6389:6379"
     networks:
       - portfolio_network
 
-  web_dreliyar:
+  web_${PROJECT_NAME}:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: django_web_dreliyar
+    container_name: django_web_${PROJECT_NAME}
     command: sh -c "/entrypoint.sh && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8082"
     volumes:
       - ../app:/app
@@ -41,28 +41,28 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=core.settings.dev
     depends_on:
-      db_dreliyar:
+      db_${PROJECT_NAME}:
         condition: service_healthy
-      redis_dreliyar:
+      redis_${PROJECT_NAME}:
         condition: service_started
     ports:
       - "127.0.0.1:8084:8082"
     networks:
       - portfolio_network
 
-  telegram_bot:
+  telegram_bot_${PROJECT_NAME}:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: telegram_bot_dreliyar
+    container_name: telegram_bot_${PROJECT_NAME}
     command: python manage.py bot
     volumes:
       - ../app:/app       # исправлено
     env_file:
       - ../.env
     depends_on:
-      - db_dreliyar
-      - web_dreliyar
+      - db_${PROJECT_NAME}
+      - web_${PROJECT_NAME}
     networks:
       - portfolio_network
 
@@ -71,4 +71,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data_dreliyar:
+  postgres_data_${PROJECT_NAME}:
