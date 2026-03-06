@@ -1,4 +1,4 @@
-# Dreliar — сайт стоматологического центра (Backend)
+# dreliyar — сайт стоматологического центра (Backend)
 
 Backend для сайта стоматологического центра: контент и админка, а также API (DRF) для клиентской части.
 
@@ -56,7 +56,7 @@ cp .envtest .env
 - `POSTGRES_DB`
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
-- `POSTGRES_HOST` (внутри docker-сети это имя сервиса БД: по умолчанию `db_dreliar`)
+- `POSTGRES_HOST` (внутри docker-сети это имя сервиса БД: по умолчанию `db_dreliyar`)
 - `POSTGRES_PORT` (обычно `5432` внутри docker)
 
 ## Быстрый старт (dev)
@@ -69,9 +69,9 @@ docker compose -f docker/docker-compose.yml up --build
 
 Что поднимается:
 
-- `db_dreliar` (Postgres)
-- `redis_dreliar` (Redis)
-- `web_dreliar` (Django dev server)
+- `db_dreliyar` (Postgres)
+- `redis_dreliyar` (Redis)
+- `web_dreliyar` (Django dev server)
 
 Порты (по умолчанию):
 
@@ -79,7 +79,7 @@ docker compose -f docker/docker-compose.yml up --build
 - Postgres: `localhost:5433` (внутри docker `5432`)
 - Redis: `localhost:6389` (внутри docker `6379`)
 
-При старте контейнера `web_dreliar` выполняется `scripts/entrypoint.sh`:
+При старте контейнера `web_dreliyar` выполняется `scripts/entrypoint.sh`:
 
 - `makemigrations`
 - `migrate`
@@ -94,7 +94,7 @@ Prod-compose: `docker/docker-compose.prod.yml`
 docker compose -f docker/docker-compose.prod.yml up --build -d
 ```
 
-В прод-режиме `web_dreliar` запускается через gunicorn и слушает `0.0.0.0:8000` (наружу проброшен `8000:8000`).
+В прод-режиме `web_dreliyar` запускается через gunicorn и слушает `0.0.0.0:8000` (наружу проброшен `8000:8000`).
 
 Дополнительно в prod-конфиге есть сервис `telegram_bot`, который запускается командой:
 
@@ -109,5 +109,5 @@ docker compose -f docker/docker-compose.prod.yml up --build -d
 
 ## Типовые проблемы
 
-- **База не доступна в контейнере.** Проверь `POSTGRES_HOST`/`POSTGRES_PORT` в `.env`. Для docker-compose `POSTGRES_HOST` должен быть именем сервиса БД (по умолчанию `db_dreliar`).
+- **База не доступна в контейнере.** Проверь `POSTGRES_HOST`/`POSTGRES_PORT` в `.env`. Для docker-compose `POSTGRES_HOST` должен быть именем сервиса БД (по умолчанию `db_dreliyar`).
 - **Порты заняты.** Измени внешние порты в `docker/docker-compose.yml` (dev) или `docker/docker-compose.prod.yml` (prod).

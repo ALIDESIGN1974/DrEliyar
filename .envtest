@@ -6,11 +6,11 @@ LANGUAGE_CODE=ru
 TIME_ZONE=Asia/Bishkek
 
 # === PROJECT NAME ===
-PROJECT_NAME=dreliar
+PROJECT_NAME=dreliyar
 
 # === POSTGRES ===
-POSTGRES_DB=dreliar
-POSTGRES_USER=dreliar_user
-POSTGRES_PASSWORD=dreliar1234
-POSTGRES_HOST=db_dreliar
+POSTGRES_DB=dreliyar
+POSTGRES_USER=dreliyar_user
+POSTGRES_PASSWORD=dreliyar1234
+POSTGRES_HOST=db_dreliyar
 POSTGRES_PORT=5432

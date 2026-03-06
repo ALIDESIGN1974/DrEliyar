@@ -54,10 +54,10 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "dreliar"),
+        "NAME": os.getenv("POSTGRES_DB", "dreliyar"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os.getenv("POSTGRES_HOST", "db_dreliar"),
+        "HOST": os.getenv("POSTGRES_HOST", "db_dreliyar"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
@@ -99,7 +99,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Dreliar API",
+    "TITLE": "dreliyar API",
     "DESCRIPTION": "API documentation",
     "VERSION": "1.0.0",
 }
@@ -118,11 +118,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # JAZZMIN ADMIN THEME
 # ===============================
 JAZZMIN_SETTINGS = {
-    "site_title": "Dreliar Admin",
+    "site_title": "dreliyar Admin",
     "site_header": "Dr. Eliyar",
-    "site_brand": "Dreliar",
+    "site_brand": "dreliyar",
     "welcome_sign": "Добро пожаловать в админку",
-    "copyright": "© Dreliar",
+    "copyright": "© dreliyar",
 
     "show_sidebar": True,
     "navigation_expanded": True,

@@ -1,15 +1,15 @@
 version: "3.8"
 
 services:
-  db_dreliar:
+  db_dreliyar:
     image: postgres:14
-    container_name: postgres_db_dreliar
+    container_name: postgres_db_dreliyar
     env_file:
       - ../.env
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data_dreliar:/var/lib/postgresql/data
+      - postgres_data_dreliyar:/var/lib/postgresql/data
     networks:
       - portfolio_network
     healthcheck:
@@ -18,19 +18,19 @@ services:
       timeout: 5s
       retries: 5
 
-  redis_dreliar:
+  redis_dreliyar:
     image: redis:6
-    container_name: redis_dreliar
+    container_name: redis_dreliyar
     ports:
       - "6389:6379"
     networks:
       - portfolio_network
 
-  web_dreliar:
+  web_dreliyar:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: django_web_dreliar
+    container_name: django_web_dreliyar
     env_file:
       - ../.env
     environment:
@@ -40,9 +40,9 @@ services:
       - ../app/static:/app/static
       - ../app/media:/app/media
     depends_on:
-      db_dreliar:
+      db_dreliyar:
         condition: service_healthy
-      redis_dreliar:
+      redis_dreliyar:
         condition: service_started
     ports:
       - "127.0.0.1:8084:8082"
@@ -53,15 +53,15 @@ services:
   #   build:
   #     context: ..
   #     dockerfile: docker/Dockerfile
-  #   container_name: telegram_bot_dreliar
+  #   container_name: telegram_bot_dreliyar
   #   env_file:
   #     - ../.env
   #   volumes:
   #     - ../app:/app
   #   depends_on:
-  #     db_dreliar:
+  #     db_dreliyar:
   #       condition: service_healthy
-  #     web_dreliar:
+  #     web_dreliyar:
   #       condition: service_started
   #   networks:
   #     - portfolio_network
@@ -72,4 +72,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data_dreliar:
+  postgres_data_dreliyar:

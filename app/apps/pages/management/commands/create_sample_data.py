@@ -16,11 +16,11 @@ class Command(BaseCommand):
         site_settings = SiteSettings.objects.create(
             brand_name="Dr. Eliyar",
             phone="+996 (555) 12-34-56",
-            email="info@dreliar.kg",
+            email="info@dreliyar.kg",
             address="г. Бишкек, ул. Киевская 77",
             work_time="Пн-Пт: 09:00-20:00, Сб: 10:00-18:00",
-            instagram="https://instagram.com/dreliar",
-            telegram="https://t.me/dreliar",
+            instagram="https://instagram.com/dreliyar",
+            telegram="https://t.me/dreliyar",
             whatsapp="https://wa.me/996555123456"
         )
         
