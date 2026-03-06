@@ -1,7 +1,10 @@
-FROM python:3.12-slim
+# Используем официальный образ Python 3.11
+FROM python:3.11-slim
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Устанавливаем зависимости системы
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
@@ -9,18 +12,21 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
-# requirements лежит в папке app/
-COPY app/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Копируем файлы зависимостей
+COPY requirements.txt .
 
-# код Django лежит в папке app/
+# Устанавливаем зависимости Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем исходный код приложения
 COPY app /app
 
-# entrypoint лежит в docker/scripts
+# Копируем entrypoint файл
 COPY scripts/entrypoint.sh /entrypoint.sh
-RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 8082
+# Открываем порт
+EXPOSE 8000
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8082"]
+# Команда по умолчанию
+CMD ["sh", "-c", "/entrypoint.sh && python manage.py runserver 0.0.0.0:8000"]
