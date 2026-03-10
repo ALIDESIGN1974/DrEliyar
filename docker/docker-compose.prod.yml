@@ -1,28 +1,28 @@
 version: '3.8'
 
 services:
-  db_${PROJECT_NAME}:
+  db:
     image: postgres:14
     container_name: postgres_db_${PROJECT_NAME}
     env_file:
       - ../.env
     volumes:
-      - postgres_data_${PROJECT_NAME}:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
-      - portfolio_network_${PROJECT_NAME}
+      - portfolio_network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  redis_${PROJECT_NAME}:
+  redis:
     image: redis:6
     container_name: redis_${PROJECT_NAME}
     networks:
-      - portfolio_network_${PROJECT_NAME}
+      - portfolio_network
 
-  web_${PROJECT_NAME}:
+  web:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -37,16 +37,16 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=core.settings.prod
     depends_on:
-      db_${PROJECT_NAME}:
+      db:
         condition: service_healthy
-      redis_${PROJECT_NAME}:
+      redis:
         condition: service_started
     ports:
       - "8000:8000"
     networks:
-      - portfolio_network_${PROJECT_NAME}
+      - portfolio_network
 
-  telegram_bot_${PROJECT_NAME}:
+  telegram_bot:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -57,14 +57,14 @@ services:
     env_file:
       - ../.env
     depends_on:
-      - db_${PROJECT_NAME}
-      - web_${PROJECT_NAME}
+      - db
+      - web
     networks:
-      - portfolio_network_${PROJECT_NAME}
+      - portfolio_network
 
 networks:
-  portfolio_network_${PROJECT_NAME}:
+  portfolio_network:
     driver: bridge
 
 volumes:
-  postgres_data_${PROJECT_NAME}:
+  postgres_data:

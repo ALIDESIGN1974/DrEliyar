@@ -9,7 +9,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data_${PROJECT_NAME}:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - portfolio_network
     healthcheck:
@@ -71,4 +71,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data_${PROJECT_NAME}:
+  postgres_data:
