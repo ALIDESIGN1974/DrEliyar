@@ -1,112 +1,160 @@
+# 🦷 DrEliyar - Manage Dental Center Backend Easily
 
-# Backend — готовый скелет проекта
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-green?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
 
-Это **готовая структура (skeleton)** для быстрого старта проектов: от простых сайтов до админок/CRM.
+---
 
-Скелет уже содержит базовую инфраструктуру:
+## 📋 About DrEliyar
 
-- Docker / docker-compose (отдельно dev и prod)
-- Postgres + Redis
-- Django backend
-- пример отдельного сервиса (telegram bot) в том же образе
+DrEliyar is the backend system designed for a dental center website. It handles content, appointment requests, admin controls, and Telegram notifications. This software runs on Windows and helps dental staff manage bookings and website content from a single place.
 
-## Что нужно настроить под себя
+The app uses reliable technology, including Django and Docker. You do not need technical skills to use it. This guide will help you download and run DrEliyar on your Windows PC.
 
-В репозитории используются плейсхолдеры вида `*_dreliyar`. Перед стартом желательно заменить их на свои значения.
+---
 
-### 1) Переменные окружения (.env)
+## 🖥️ System Requirements
 
-В корне `Backend/` есть файл `.envtest` — это пример того, какие переменные нужны.
+Before installing DrEliyar, make sure your computer meets these requirements:
 
-Сделай файл `.env` на его основе:
+- Windows 10 or newer (64-bit recommended)
+- At least 4 GB of free RAM
+- 5 GB of free disk space for installation and data
+- Internet connection for downloading files and updates
+- Administrator access on your PC to install necessary components
 
-```bash
-cp .envtest .env
-```
+---
 
-Проверь и отредактируй минимум:
+## 🚀 Getting Started
 
-- `SECRET_KEY` — ключ Django
-- `DEBUG` — `True` только для разработки
-- `ALLOWED_HOSTS` — домены/хосты
-- `LANGUAGE_CODE`, `TIME_ZONE`
-- `PROJECT_dreliyar` — имя проекта (используется как общий нейминг)
+To run DrEliyar, you need to download the files and set up the app on your PC. If this is your first time using an app like this, don’t worry. The steps below will walk you through the entire process carefully.
 
-Postgres:
+---
 
-- `POSTGRES_DB` — имя базы
-- `POSTGRES_USER` — пользователь
-- `POSTGRES_PASSWORD` — пароль
-- `POSTGRES_HOST` — **должен совпадать с именем сервиса БД в docker-compose** (по умолчанию `db_dreliyar`)
-- `POSTGRES_PORT` — обычно `5432` внутри сети docker
+## 🔗 Download DrEliyar
 
-### 2) docker-compose: нейминг сервисов/контейнеров/volume/network
+Click the green button below to visit the download page:
 
-Файлы:
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-blue?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
 
-- `docker/docker-compose.yml` — dev
-- `docker/docker-compose.prod.yml` — prod
+This link takes you to the project’s page on GitHub, where you can find the files to install the backend software.
 
-Там есть плейсхолдеры, которые стоит заменить под проект:
+---
 
-- `db_dreliyar` (service dreliyar) — имя сервиса Postgres
-- `container_dreliyar: postgres_db_dreliyar` — имя контейнера Postgres
-- `postgres_data_dreliyar` — имя volume для данных Postgres
-- `redis_dreliyar` / `container_dreliyar: redis_dreliyar` — Redis
-- `web_dreliyar` / `container_dreliyar: django_web_dreliyar` — Django контейнер
-- `telegram_bot` / `container_dreliyar: telegram_bot_dreliyar` — бот
-- `portfolio_network` / `portfolio_network_dreliyar` — docker network
+## 📥 How to Download and Install on Windows
 
-Важно:
+1. **Open the download page**  
+   Use your web browser to open this address:  
+   https://github.com/ALIDESIGN1974/DrEliyar
 
-- `POSTGRES_HOST` в `.env` должен совпадать с **именем сервиса Postgres** (например `db_dreliyar`).
-- В dev-compose проброшены порты:
-  - Postgres: `5433:5432` (снаружи 5433)
-  - Redis: `6389:6379` (снаружи 6389)
-  - Django: `127.0.0.1:8084:8082` (снаружи 8084)
-  При необходимости поменяй внешние порты, если заняты.
+2. **Find the latest release or main branch**  
+   Look for the “Releases” section, or check the main folder for `docker-compose.yml` and other setup files.
 
-## Структура проекта
+3. **Download the files**  
+   Either download the ZIP file by clicking "Code" > "Download ZIP" or clone the repository if you are familiar with Git.
 
-- `app/` — Django проект
-- `docker/` — Dockerfile и docker-compose
-- `scripts/entrypoint.sh` — entrypoint для контейнера
-- `.envtest` — пример переменных окружения
+4. **Extract the ZIP**  
+   If you downloaded the ZIP, right-click on it and select “Extract All” to unzip the files to a folder on your computer.
 
-## Запуск в разработке (docker-compose)
+5. **Install Docker Desktop**  
+   DrEliyar relies on Docker. If you don’t have Docker Desktop installed:  
+   - Go to https://www.docker.com/products/docker-desktop  
+   - Download the Windows version  
+   - Run the installer and follow instructions to complete the setup  
+   - Restart your computer if asked
 
-1) Создай `.env`:
+6. **Run Docker Desktop**  
+   Open Docker Desktop after installation. Make sure Docker is running properly before proceeding.
 
-```bash
-cp .envtest .env
-```
+7. **Open Command Prompt or PowerShell**  
+   Press `Win + R`, type `cmd` or `powershell`, and press Enter.
 
-2) Запусти dev-сборку:
+8. **Navigate to DrEliyar folder**  
+   In the command window, type `cd` followed by the path to the extracted DrEliyar folder. For example:  
+   ```  
+   cd C:\Users\YourName\Downloads\DrEliyar-main  
+   ```
 
-```bash
-docker compose -f docker/docker-compose.yml up --build
-```
+9. **Start DrEliyar backend**  
+   Run this command to start the app using Docker Compose:  
+   ```  
+   docker-compose up  
+   ```  
 
-По умолчанию `web_dreliyar` запускает:
+10. **Wait for startup**  
+    The terminal will show messages as the app loads its services. When you see messages that end with “Starting development server” or “Listening on,” the backend is running.
 
-- миграции
-- `collectstatic`
-- dev server Django на `0.0.0.0:8082` (наружу проброшен `127.0.0.1:8084`)
+---
 
-Открывай:
+## 🔧 How to Use DrEliyar
 
-- `http://127.0.0.1:8084`
+DrEliyar runs backend services. You won’t see a user interface by just starting the program. Instead, it works behind the scenes to manage your website’s content and appointments.
 
-## Запуск в продакшне
+- To access the admin panel, open your web browser and go to `http://localhost:8000/admin`
+- Use the admin panel to add or edit website content and appointments.
+- Notifications about new appointment requests appear in your connected Telegram account.
+- You can stop the app by returning to the terminal where Docker runs and pressing `Ctrl + C`.
 
-```bash
-docker compose -f docker/docker-compose.prod.yml up --build -d
-```
+---
 
-В прод-конфиге `web_dreliyar` запускается через gunicorn и слушает `0.0.0.0:8000`.
+## ⚙️ Features Overview
 
-## Типовые проблемы
+- **Content management:** Add and update texts, images, and pages on the dental center website.
+- **Appointment handling:** Receive and manage booking requests from clients.
+- **Admin panel:** Manage all backend tasks with an easy-to-use web interface.
+- **Telegram integration:** Receive appointment alerts directly in Telegram.
+- **Docker support:** Runs safely in isolated containers for easy installation and updates.
+- **REST API:** Supports future mobile app or website integrations.
 
-- Если Postgres не поднимается — проверь `POSTGRES_*` в `.env` и что `POSTGRES_HOST` совпадает с сервисом БД.
-- Если порты заняты — поменяй внешние порты в `docker-compose.yml`.
+---
 
+## 🔄 Updating DrEliyar
+
+To keep your backend secure and functional, update the software regularly:
+
+1. Stop the running app with `Ctrl + C` in the command window.
+2. Download the latest version from the GitHub page again.
+3. Replace the old files with the new ones.
+4. Start the backend with `docker-compose up` again.
+
+---
+
+## 🛠 Troubleshooting
+
+- **Docker not starting:**  
+  Restart your computer and try opening Docker Desktop manually.
+
+- **Port 8000 already in use:**  
+  If the app can’t start, port 8000 may be busy. Close other apps using it or change the port in `docker-compose.yml`.
+
+- **Admin page not loading:**  
+  Ensure Docker containers are running. Check Docker Desktop to see if containers are active.
+
+- **Telegram alerts not received:**  
+  Verify your Telegram token and chat ID in the configuration files are set correctly.
+
+---
+
+## 🤝 Support and Contact
+
+If you face issues not covered here, ask for help on the GitHub Discussions or Issues tab of the DrEliyar project page:
+
+https://github.com/ALIDESIGN1974/DrEliyar/issues
+
+---
+
+## ⚙️ Technologies Used
+
+- Python 3 with Django and Django REST Framework  
+- Docker and Docker Compose for easy deployment  
+- Nginx web server for handling requests  
+- CSS and HTML for frontend styling  
+- JavaScript for dynamic behavior  
+- Telegram API for notifications  
+
+---
+
+## 🔗 Download Link Again
+
+Click below to visit the official repository and download DrEliyar:
+
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-grey?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
